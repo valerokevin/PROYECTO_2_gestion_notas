@@ -1,136 +1,67 @@
-const inventario = [
-    { id: 101, nombre: "Laptop Gamer", categoria: "Tecnología", precio: 3500000, stock: 6, vendidos: 3 },
-    { id: 102, nombre: "Audífonos Bluetooth", categoria: "Audio", precio: 150000, stock: 2, vendidos: 10 },
-    { id: 103, nombre: "Smartwatch", categoria: "Tecnología", precio: 500000, stock: 0, vendidos: 8 },
-    { id: 104, nombre: "Cargador USB-C", categoria: "Accesorios", precio: 40000, stock: 15, vendidos: 20 },
-    { id: 105, nombre: "Tablet", categoria: "Tecnología", precio: 1200000, stock: 4, vendidos: 5 }
+const productos = [
+    { id: 1, nombre: "Mouse", categoria: "Periferico", precio: 50000, stock: 10, ventas: 12 },
+    { id: 2, nombre: "Teclado", categoria: "Periferico", precio: 120000, stock: 5, ventas: 7 },
+    { id: 3, nombre: "Monitor", categoria: "Pantalla", precio: 800000, stock: 2, ventas: 4 },
+    { id: 4, nombre: "USB", categoria: "Accesorio", precio: 30000, stock: 0, ventas: 15 },
+    { id: 5, nombre: "Diadema", categoria: "Audio", precio: 90000, stock: 8, ventas: 6 }
 ];
 
+// MOSTRAR EN PANTALLA
+function mostrar(data) {
+document.getElementById("resultado").innerHTML =
+    "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+}
 
-// Mostrar productos
+// Ver productos
 function verInventario() {
-    console.table(inventario);
+mostrar(productos);
 }
 
-//  Stock bajo
-function productosCriticos() {
-    return inventario.filter(p => p.stock > 0 && p.stock < 5);
+// Stock bajo
+function stockBajo() {
+let resultado = productos.filter(p => p.stock < 5 && p.stock > 0);
+mostrar(resultado);
 }
 
-//  Sin stock
-function sinExistencias() {
-    return inventario.filter(p => p.stock === 0);
+// Agotados
+function agotados() {
+let resultado = productos.filter(p => p.stock === 0);
+mostrar(resultado);
 }
 
-//  Buscar
-function buscar(nombre) {
-    return inventario.find(p => 
+// Buscar
+function buscarProducto() {
+let nombre = prompt("Ingrese el nombre:");
+
+if (!nombre) {
+    mostrar("No escribiste nada");
+    return;
+}
+
+let resultado = productos.find(p =>
     p.nombre.toLowerCase().includes(nombre.toLowerCase())
-    );
+);
+
+mostrar(resultado || "No encontrado");
 }
 
-//  Valor total inventario
-function calcularInventario() {
-  return inventario.reduce((total, p) => total + (p.precio * p.stock), 0);
+// Total inventario
+function totalInventario() {
+  let total = productos.reduce((acc, p) => acc + (p.precio * p.stock), 0);
+mostrar("Total inventario: $" + total);
 }
 
-//  Total ventas en dinero
-function calcularVentas() {
-  return inventario.reduce((total, p) => total + (p.precio * p.vendidos), 0);
+// Total ventas
+function totalVentas() {
+let total = productos.reduce((acc, p) => acc + p.ventas, 0);
+mostrar("Total ventas: " + total);
 }
 
-//  Más vendido
-function topProducto() {
-    return inventario.reduce((max, p) => 
-    p.vendidos > max.vendidos ? p : max
-    );
+// Producto más vendido
+function productoTop() {
+let top = productos.reduce((a, b) =>
+    a.ventas > b.ventas ? a : b
+);
+
+mostrar(top);
 }
-
-//  Ordenar por precio
-function ordenarPrecios() {
-    return [...inventario].sort((a, b) => b.precio - a.precio);
-}
-
-//  Validaciones
-function existeAgotado() {
-    return inventario.some(p => p.stock === 0);
-}
-
-function todosDisponibles() {
-    return inventario.every(p => p.stock > 0);
-}
-
-//  Reporte general
-function reporte() {
-    console.log(" Inventario total:", calcularInventario());
-    console.log(" Ventas totales:", calcularVentas());
-    console.log("Producto top:", topProducto().nombre);
-    console.log(" Stock bajo:", productosCriticos());
-    console.log(" Agotados:", sinExistencias());
-}
-
-//  MENÚ INTERACTIVO
-function iniciarSistema() {
-    let opcion;
-
-    do {
-    opcion = prompt(`
-    === SISTEMA DE INVENTARIO ===
-    1. Ver inventario
-    2. Stock bajo
-    3. Productos agotados
-    4. Buscar producto
-    5. Total inventario
-    6. Total ventas
-    7. Producto más vendido
-    8. Reporte general
-    0. Salir
-    `);
-
-    switch(opcion) {
-    case "1":
-        verInventario();
-        break;
-
-    case "2":
-        console.table(productosCriticos());
-        break;
-
-    case "3":
-        console.table(sinExistencias());
-        break;
-
-    case "4":
-        let nombre = prompt("Ingrese el nombre:");
-        console.log(buscar(nombre));
-        break;
-
-    case "5":
-        console.log(calcularInventario());
-        break;
-
-    case "6":
-        console.log(calcularVentas());
-        break;
-
-    case "7":
-        console.log(topProducto());
-        break;
-
-    case "8":
-        reporte();
-        break;
-
-    case "0":
-        console.log("Sistema cerrado");
-        break;
-
-    default:
-        console.log("Opción inválida");
-    }
-
-} while(opcion !== "0");
-}
-
-// Ejecutar
-iniciarSistema();
