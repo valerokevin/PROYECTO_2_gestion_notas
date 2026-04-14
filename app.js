@@ -5,3 +5,26 @@ const productos = [
     {id: 4, nombre: "USB", categoria: "Accesorios", precio: 25000, stock: 17, ventas: 6},
     {id: 5, nombre: "Diadema", categoria: "Audio", precio: 90000, stock: 0, ventas: 2}
 ];
+
+//MOSTRA EN PANTALLA
+function mostrar(data){
+    document.getElementById("resultado").innerHTML
+    =
+     "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+}
+
+//VER PRODUCTOS
+function verinventario(){
+    mostrar(productos);
+}
+
+//STOCK BAJO
+function stockBajo(){
+    let resultado= productos.filter(p => p.stock< 5&& p.stock > 0);
+    mostrar(resultado);
+}
+//AGOTADOS
+function agotados(){
+    let resultado= productos.filter(p=>p.stock===0);
+    mostrar(resultado);
+}
