@@ -28,3 +28,34 @@ function agotados(){
     let resultado= productos.filter(p=>p.stock===0);
     mostrar(resultado);
 }
+
+//Buscar
+
+function buscarproducto(){
+    let nombre = prompt("ingrese el nombre:");
+
+    if (!nombre){
+        mostrar("no escribiste nada");
+        return
+    }
+
+    let resultado = productos.find(p => p.nombre.toLowerCase().includes(nombres.toLowerCase())
+);
+    mostrar("resultado || no encontrado" );
+}
+//total inventario
+function totalinventario() {
+    let total = productos.reduce((acc, p) => acc + (p.precio * p.stock), 0)
+    mostrar("total inventario: $" + total);
+}
+
+//total vantas
+function totalventas() {
+    let total = productos.reduce((acc, p) => acc + p.ventas, 0);
+}
+//productos vendidios
+function productostop() {
+    let top = productos.reduce((a,b) => a.ventas > b.ventas ? a : b);
+    mostrar(top);
+    
+}
