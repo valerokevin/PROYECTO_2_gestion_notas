@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario Web</title>
+    <style>
+    body {
+        font-family: Arial;
+        background: #0f172a;
+        color: white;
+        text-align: center;
+    }
+
+    button {
+        margin: 10px;
+        padding: 10px 15px;
+        border: none;
+        background: #2563eb;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #1d4ed8;
+    }
+
+    #resultado {
+        margin-top: 20px;
+        padding: 15px;
+        background: #1e293b;
+        border-radius: 10px;
+    }
+    </style>
+</head>
+<body>
+
+    <h1> Sistema de Inventario</h1>
+
+    <button onclick="verInventario()">Ver productos</button>
+    <button onclick="stockBajo()">Stock bajo</button>
+    <button onclick="agotados()">Agotados</button>
+    <button onclick="buscarProducto()">Buscar</button>
+    <button onclick="totalInventario()">Total inventario</button>
+    <button onclick="totalVentas()">Total ventas</button>
+    <button onclick="productoTop()">Más vendido</button>
+
+    <div id="resultado"></div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
